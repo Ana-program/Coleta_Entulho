@@ -1,5 +1,6 @@
 package br.com.osasco.wastepickup.controller;
 
+import br.com.osasco.wastepickup.dto.PickupRequestDTO;
 import br.com.osasco.wastepickup.entity.PickupRequest;
 import br.com.osasco.wastepickup.model.RequestStatus;
 import br.com.osasco.wastepickup.service.pickupRequest.PickupRequestService;
@@ -24,9 +25,9 @@ public class PickupRequestController {
     }
 
     @PostMapping
-    public ResponseEntity<PickupRequest> createPickup(@RequestBody PickupRequest request) {
-        PickupRequest createdRequest = service.createRequest(request);
-        return ResponseEntity.ok(createdRequest);
+    public ResponseEntity<Void> createPickup(@RequestBody PickupRequestDTO request) {
+        service.createRequest(request);
+        return ResponseEntity.noContent().build();
     }
 
     @PreAuthorize("hasRole('ADMIN')")
