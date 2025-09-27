@@ -6,7 +6,6 @@ import br.com.osasco.wastepickup.model.RequestStatus;
 import br.com.osasco.wastepickup.repository.PickupRequestRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,10 +22,10 @@ public class PickupRequestService {
 
         boolean exists = repository.existsByAddress(pickupRequest.getAddress());
         if (exists) {
-            throw new BusinessException("Já existe uma solicitação nesse endereço.");
+            throw new BusinessException("There is already a request at this address");
         }
         if (pickupRequest.getEstimatedQuantity() <= 0) {
-            throw new BusinessException("A quantidade estimada deve ser maior que zero.");
+            throw new BusinessException("The estimated quantity must be greater than zero");
         }
 
         return repository.save(pickupRequest);
@@ -38,7 +37,7 @@ public class PickupRequestService {
 
     public void updateStatus(Long id, RequestStatus status) {
         PickupRequest request = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Solicitação não encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Request not found"));
         request.setStatus(status);
 
         repository.save(request);
