@@ -1,7 +1,9 @@
 package br.com.osasco.wastepickup.service.pickupRequest;
 
+import br.com.osasco.wastepickup.dto.PickupRequestDTO;
 import br.com.osasco.wastepickup.entity.PickupRequest;
 import br.com.osasco.wastepickup.exception.BusinessException;
+import br.com.osasco.wastepickup.mapper.PickupRequestMapper;
 import br.com.osasco.wastepickup.model.RequestStatus;
 import br.com.osasco.wastepickup.repository.PickupRequestRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -16,7 +18,10 @@ public class PickupRequestService {
     @Autowired
     PickupRequestRepository repository;
 
-    public PickupRequest createRequest(PickupRequest pickupRequest){
+    @Autowired
+    PickupRequestMapper requestMapper;
+
+    public void createRequest(PickupRequestDTO pickupRequest){
 
         pickupRequest.setStatus(RequestStatus.PENDING);
 
@@ -28,7 +33,8 @@ public class PickupRequestService {
             throw new BusinessException("The estimated quantity must be greater than zero");
         }
 
-        return repository.save(pickupRequest);
+        PickupRequest entity = requestMapper.toEntity(pickupRequest);
+       repository.save(entity);
     }
 
     public List<PickupRequest> getAllRequest() {
