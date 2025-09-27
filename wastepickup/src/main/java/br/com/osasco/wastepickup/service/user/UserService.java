@@ -7,6 +7,8 @@ import br.com.osasco.wastepickup.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -16,19 +18,26 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    public UserDTO updateUser(Long id, UserDTO dto) {
-        User user = repository.findUserById(id);
+    public UserDTO updateUser(String id, UserDTO dto) {
+        User user = repository.findUserById(Long.valueOf(id));
         userMapper.updateEntityFromDto(dto, user);
         repository.save(user);
 
         return userMapper.toDto(user);
     }
 
-    public User createUser(User user) {
-        return repository.save(user);
+    public UserDTO getUser(Long id) {
+        User user = repository.findById(id);
+        return userMapper.toDto(user);
     }
 
-    public UserDTO getUser(Long id) {
-        return repository.findById(id);
+    public List<UserDTO> findAllUsers() {
+        List<User> users = repository.findAll();
+        return userMapper.toDTOList(users);
+    }
+
+    public void deleteUser(Long id) {
+        repository.deleteById(String.valueOf(id));
     }
 }
+
