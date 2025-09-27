@@ -30,4 +30,8 @@ public class PickupRequest {
     @Enumerated(EnumType.STRING)
     private RequestStatus status = RequestStatus.PENDING;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }
