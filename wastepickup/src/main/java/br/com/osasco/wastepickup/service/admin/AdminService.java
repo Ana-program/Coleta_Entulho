@@ -1,13 +1,13 @@
 package br.com.osasco.wastepickup.service.admin;
 
 import br.com.osasco.wastepickup.dto.AdminDTO;
-import br.com.osasco.wastepickup.dto.UserDTO;
 import br.com.osasco.wastepickup.entity.Admin;
-import br.com.osasco.wastepickup.entity.User;
 import br.com.osasco.wastepickup.mapper.AdminMapper;
 import br.com.osasco.wastepickup.repository.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdminService {
@@ -26,11 +26,16 @@ public class AdminService {
         return adminMapper.toDto(admin);
     }
 
-    public Admin createAdmin(Admin admin) {
-        return repository.save(admin);
-    }
-
     public AdminDTO getAdmin(Long id) {
         return repository.findById(id);
+    }
+
+    public List<AdminDTO> getAllAdmin() {
+        List<Admin> admins = repository.findAll();
+        return adminMapper.toDTOList(admins);
+    }
+
+    public void deleteAdmin(Long id) {
+        repository.deleteById(String.valueOf(id));
     }
 }
