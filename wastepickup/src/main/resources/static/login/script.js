@@ -7,9 +7,14 @@ const loginUsers = () => ({
     password: getValue("password"),
 });
 
-const handleResponse = (res, successMsg, errorMsg) => {
-    if (res.ok) alert(successMsg);
-    else alert(errorMsg);
+const handleResponse = async (res, successMsg, errorMsg) => {
+    if (res.ok) {
+        const data = await res.json();
+        localStorage.setItem("token", data.token);
+        alert(successMsg);
+    } else {
+        alert(errorMsg);
+    }
 };
 
 document.querySelector(".login")?.addEventListener("click", () => {
@@ -19,4 +24,5 @@ document.querySelector(".login")?.addEventListener("click", () => {
         body: JSON.stringify(loginUsers())
     }).then(res => handleResponse(res, "Login efetuado com sucesso!", "Login não existe!"));
 });
+
 
