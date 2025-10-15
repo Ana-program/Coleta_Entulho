@@ -1,0 +1,29 @@
+body {
+    background-color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+
+.logo {
+    width: 180px;
+    height: auto;
+}
+
+.title {
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.btn-pink {
+    background-color: #f7aeb0;
+    color: #fff;
+    border: none;
+}
+
+.btn-pink:hover {
+    background-color: #f48b8d;
+}
