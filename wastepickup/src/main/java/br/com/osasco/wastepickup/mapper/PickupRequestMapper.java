@@ -8,12 +8,12 @@ import org.springframework.stereotype.Component;
 public class PickupRequestMapper {
 
     public PickupRequest toEntity(PickupRequestDTO dto) {
-
         PickupRequest entity = new PickupRequest();
-        entity.setAddress(dto.getAddress());
+        entity.setRequesterName(dto.getRequesterName());
         entity.setDebrisType(dto.getDebrisType());
         entity.setEstimatedQuantity(dto.getEstimatedQuantity());
         entity.setRequestDate(dto.getRequestDate());
+        entity.setAddress(dto.getAddress());
         entity.setStatus(dto.getStatus());
         return entity;
     }
@@ -29,3 +29,6 @@ public class PickupRequestMapper {
     }
 
 }
+
+
+
