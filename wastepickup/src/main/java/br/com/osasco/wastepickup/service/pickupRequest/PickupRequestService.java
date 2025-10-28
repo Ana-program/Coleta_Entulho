@@ -2,10 +2,12 @@ package br.com.osasco.wastepickup.service.pickupRequest;
 
 import br.com.osasco.wastepickup.dto.PickupRequestDTO;
 import br.com.osasco.wastepickup.entity.PickupRequest;
+import br.com.osasco.wastepickup.entity.User;
 import br.com.osasco.wastepickup.exception.BusinessException;
 import br.com.osasco.wastepickup.mapper.PickupRequestMapper;
 import br.com.osasco.wastepickup.model.RequestStatus;
 import br.com.osasco.wastepickup.repository.PickupRequestRepository;
+import br.com.osasco.wastepickup.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +21,12 @@ public class PickupRequestService {
     PickupRequestRepository repository;
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
     PickupRequestMapper requestMapper;
 
-    public void createRequest(PickupRequestDTO pickupRequest){
+    public void createRequest(Long userId, PickupRequestDTO pickupRequest){
 
         pickupRequest.setStatus(RequestStatus.PENDING);
 
@@ -34,19 +39,25 @@ public class PickupRequestService {
         }
 
         PickupRequest entity = requestMapper.toEntity(pickupRequest);
+        User user = userRepository.findById(userId);
+        entity.setUser(user);
        repository.save(entity);
     }
 
-    public List<PickupRequest> getAllRequest() {
-        return repository.findAll();
+    public List<PickupRequest> getAllRequest(Long userId) {
+        userRepository.findById(userId);
+        return repository.findByUserId(userId);
     }
 
     public void updateStatus(Long id, RequestStatus status) {
         PickupRequest request = repository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Request not found"));
-        request.setStatus(status);
 
+        request.setStatus(status);
         repository.save(request);
+
+        User user = request.getUser();
+        userRepository.save(user);
     }
 
     public void cancelRequest(Long id) {
@@ -54,3 +65,4 @@ public class PickupRequestService {
     }
 
 }
+
