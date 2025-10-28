@@ -14,6 +14,7 @@ import java.time.LocalDate;
 @Getter
 public class PickupRequestDTO {
 
+    private Long id;
     private String requesterName;
     private String debrisType;
     private double estimatedQuantity;
@@ -22,4 +23,5 @@ public class PickupRequestDTO {
 
     @Enumerated(EnumType.STRING)
     private RequestStatus status = RequestStatus.PENDING;
+
 }
