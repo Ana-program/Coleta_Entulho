@@ -33,9 +33,10 @@ public class SecurityConfigurations {
                         "/auth/register-user",
                         "/faq/**",
                         "/solicitacao/**",
-                        "/historico/**",
                         "/login/**",
                         "/cadastro/**",
+                        "/password/**",
+                        "/his/**",
                         "/favicon.ico",
                         "/swagger-ui/**",
                         "/v3/api-docs/**"
@@ -57,6 +58,7 @@ public class SecurityConfigurations {
                         .requestMatchers("/auth/register-admin").hasRole("ADMIN")
                         .requestMatchers("/api/requests/updateStatus").hasRole("ADMIN")
                         .requestMatchers("/api/admin/requests/**").hasRole("ADMIN")
+                        .requestMatchers("/api/requests/{userId}").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);
