@@ -35,17 +35,6 @@ console.log(cadastro())
       method: "POST",
         headers: { "Content-Type": "application/json" },
        body: JSON.stringify(cadastro())
-    })
-
-document.querySelector("#cadastrar-usuario")?.addEventListener("click", () => {
-console.log(cadastro())
-
-    fetch(`${baseUrl}/register-admin`, {
-      method: "POST",
-        headers: { "Content-Type": "application/json" },
-       body: JSON.stringify(cadastro())
-    })
-});
-
-
-
+    }) .then(res => handleResponse(res, "Cadastro realizado com sucesso!", "Erro ao cadastrar"))
+          .catch(err => alert("Erro na requisição: " + err));
+      });
