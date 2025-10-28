@@ -18,15 +18,15 @@ public class PickupRequestController {
     @Autowired
     private PickupRequestService service;
 
-    @GetMapping
-    public ResponseEntity<List<PickupRequest>> getAllRequests(){
-        List<PickupRequest> requests =  service.getAllRequest();
+    @GetMapping("/{userId}")
+    public ResponseEntity<List<PickupRequest>> getAllRequests(@PathVariable Long userId ){
+        List<PickupRequest> requests =  service.getAllRequest(userId);
         return ResponseEntity.ok(requests);
     }
 
-    @PostMapping
-    public ResponseEntity<Void> createPickup(@RequestBody PickupRequestDTO request) {
-        service.createRequest(request);
+    @PostMapping("/{userId}")
+    public ResponseEntity<Void> createPickup(@PathVariable Long userId, @RequestBody PickupRequestDTO request) {
+        service.createRequest(userId, request);
         return ResponseEntity.noContent().build();
     }
 
@@ -42,5 +42,6 @@ public class PickupRequestController {
         service.cancelRequest(id);
         return ResponseEntity.noContent().build();
     }
+
 
 }
