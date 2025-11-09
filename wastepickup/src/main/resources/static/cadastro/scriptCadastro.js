@@ -29,6 +29,23 @@ const handleResponse = (res, successMsg, errorMsg) => {
 };
 
 document.querySelector("#cadastrar-usuario")?.addEventListener("click", () => {
+document.querySelectorAll(".erro").forEach(e => e.remove());
+
+  let valido = true;
+
+  document.querySelectorAll("input[required]").forEach(campo => {
+    if (!campo.value.trim()) {
+      valido = false;
+      campo.insertAdjacentHTML("afterend", '<span class="erro">Campo obrigatório</span>');
+      campo.classList.add("is-invalid");
+    } else {
+      campo.classList.remove("is-invalid");
+    }
+  });
+
+  if (!valido) return;
+
+
 console.log(cadastro())
 
     fetch(`${baseUrl}/register-user`, {

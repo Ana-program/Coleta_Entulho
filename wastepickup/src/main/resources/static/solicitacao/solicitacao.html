@@ -25,26 +25,36 @@
             </div>
             <div class="col-md-3">
                 <label for="debrisType" class="form-label">Tipo de entulho *</label>
-                <input type="text" class="form-control" id="debrisType" required>
+                <select class="form-select" id="debrisType" required>
+                    <option value="">Selecione...</option>
+                    <option value="madeira">Madeira</option>
+                    <option value="tijolo">Tijolos</option>
+                    <option value="concreto">Concreto</option>
+                    <option value="moveis">Móveis velhos</option>
+                    <option value="eletrodometicos">Eletrodomésticos pequenos</option>
+                </select>
             </div>
             <div class="col-md-3">
-                <label for="estimatedQuantity" class="form-label">Quantidade de entulho *</label>
+                <label for="estimatedQuantity" class="form-label">Quantidade de entulho (em m³) *</label>
                 <input type="text" class="form-control" id="estimatedQuantity" required>
             </div>
             <div class="col-md-2">
                 <label for="requestDate" class="form-label">Data da solicitação *</label>
-                <input type="text" class="form-control" id="requestDate">
+                <input type="date" class="form-control" id="requestDate">
             </div>
         </div>
 
         <div class="row mb-3">
-            <div class="col-md-8">
+            <div class="col-md-5">
                 <label for="address" class="form-label">Informe o endereço completo *</label>
                 <input type="text" class="form-control" id="address" required>
             </div>
-            <div class="col-md-3">
-                <label for="status" class="form-label">Status *</label>
-                <input type="text" class="form-control" id="status" required>
+        </div>
+
+        <div class="card p-4 shadow-sm mb-4">
+            <label for="userId" class="form-label">Digite o ID do Usuário:</label>
+            <div class="input-group">
+                <input type="number" id="userId" class="form-control" placeholder="Ex: 22">
             </div>
         </div>
 
